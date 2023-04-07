@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Step 1: Rename USB Gamepad.cfg to USB Gamepad .cfg
+# Step 1: Rename USB Gamepad.cfg to USB Gamepad .cfg. This adds the proper spacing to the name of gamepad.
 if [ -f "/opt/retropie/configs/all/retroarch-joypads/USB Gamepad.cfg" ]; then
   mv "/opt/retropie/configs/all/retroarch-joypads/USB Gamepad.cfg" "/opt/retropie/configs/all/retroarch-joypads/USB Gamepad .cfg"
 fi
