@@ -13,3 +13,7 @@ The gamepads name and config files must be updated to get the controllers to wor
 - Before running script, first do a dry run with the controller and get it to fail to throw the error.
 - Once that is done, you can run the script and let it make the changes for you.
 
+I created this script because I had to make the changes to a bunch of PCs remotely and this simplified the whole process.
+
+**NOTE**: This may only be an issue on certain USB gamepads and on certain linux distros.
+
