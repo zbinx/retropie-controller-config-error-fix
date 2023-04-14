@@ -17,3 +17,8 @@ I created this script because I had to make the changes to a bunch of PCs remote
 
 **NOTE**: This may only be an issue on certain USB gamepads and on certain linux distros.
 
+## To use: 
+- git clone https://github.com/zbinx/retropie-controller-config-error-fix
+- sudo chmod +x controller_fix.sh
+- sudo ./controller_fix.sh
+
