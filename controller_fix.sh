@@ -1,11 +1,30 @@
 #!/bin/bash
 
-# Step 1: Rename USB Gamepad.cfg to USB Gamepad .cfg. This adds the proper spacing to the name of gamepad.
-if [ -f "/opt/retropie/configs/all/retroarch-joypads/USB Gamepad.cfg" ]; then
-  mv "/opt/retropie/configs/all/retroarch-joypads/USB Gamepad.cfg" "/opt/retropie/configs/all/retroarch-joypads/USB Gamepad .cfg"
-fi
+devices_file="proc/bus/input/devices"
+config_dir="/opt/retropie/configs/all/retroarch/autoconfig/"
 
-# Step 2: Edit USB Gamepad .cfg and replace input_device value
-if [ -f "/opt/retropie/configs/all/retroarch/autoconfig/USB Gamepad .cfg" ]; then
-  sed -i 's/input_device = "USB Gamepad"/input_device = "USB Gamepad "/g' "/opt/retropie/configs/all/retroarch/autoconfig/USB Gamepad .cfg"
-fi
+echo "Starting script..."
+
+while read -r line; do
+  # Extract the device name from the line if it contains "USB"
+  if echo "$line" | grep -q "USB"; then
+    device_name=$(echo "$line" | awk -F'"' '/Name/ {print $2}' | sed 's/ *$//')
+    echo "Processing device: $device_name"
+    # Rename the config file to match the device name
+    old_name=$(find "$config_dir" -type f -name "*.cfg" -iname "*${device_name% }*")
+    if [[ -n "$old_name" ]]; then
+      new_name=$(echo "$old_name" | sed "s/\(.*\)\.cfg/\1\ .cfg/")
+      echo "Renaming file: $old_name to $new_name"
+      mv "$old_name" "$new_name"
+
+      # Update the input_device string in the config file
+      sed -i "s/input_device = \".*\"/input_device = \"$device_name \"/g" "$new_name"
+      
+      echo "Device name added to config file: $new_name"
+    else
+      echo "Config file not found for $device_name"
+    fi
+  fi
+done < "$devices_file"
+
+echo "Script finished."
