@@ -1,4 +1,4 @@
-# Patch to fix Retropie / Emulation Station gamepad error.
+# Patch to fix Retropie / Emulation Station gamepad & USB controller error.
 
 ## Description:
 ### Error msg: "USB Gamepad 100/200 not configured" during game loading.
